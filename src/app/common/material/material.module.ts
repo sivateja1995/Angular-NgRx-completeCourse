@@ -9,7 +9,12 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog';
-
+import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatListModule} from '@angular/material/list';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule, FormsModule ,Form} from '@angular/forms';
 
 @NgModule({
   declarations: [],
@@ -25,7 +30,14 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatDialogModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatMenuModule,
+    MatListModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class MaterialModule { }
