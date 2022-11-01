@@ -1,0 +1,24 @@
+"use strict";
+exports.__esModule = true;
+var express = require("express");
+var get_courses_route_1 = require("./get-courses.route");
+var search_lessons_route_1 = require("./search-lessons.route");
+var auth_route_1 = require("./auth.route");
+var save_course_route_1 = require("./save-course.route");
+var create_course_route_1 = require("./create-course.route");
+var delete_course_route_1 = require("./delete-course.route");
+var bodyParser = require('body-parser');
+var app = express();
+var cors = require('cors');
+app.use(cors({ origin: true }));
+app.use(bodyParser.json());
+app.route('/api/login').post(auth_route_1.loginUser);
+app.route('/api/courses').get(get_courses_route_1.getAllCourses);
+app.route('/api/course').post(create_course_route_1.createCourse);
+app.route('/api/course/:id').put(save_course_route_1.saveCourse);
+app.route('/api/course/:id')["delete"](delete_course_route_1.deleteCourse);
+app.route('/api/courses/:courseUrl').get(get_courses_route_1.getCourseByUrl);
+app.route('/api/lessons').get(search_lessons_route_1.searchLessons);
+var httpServer = app.listen(9000, function () {
+    console.log("HTTP REST API Server running at http://localhost:" + httpServer.address().port);
+});
