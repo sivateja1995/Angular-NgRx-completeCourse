@@ -5,6 +5,7 @@ import { CourseComponent } from './course/course.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from '../common/material/material.module';
 import { EditCourseComponentComponent } from './edit-course-component/edit-course-component.component';
+import { CoursesCardListComponent } from './courses-card-list/courses-card-list.component';
 
 export const coursesRoutes: Routes = [
   {
@@ -18,7 +19,7 @@ export const coursesRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [HomeComponent, CourseComponent, EditCourseComponentComponent],
+  declarations: [HomeComponent, CourseComponent, EditCourseComponentComponent, CoursesCardListComponent],
   imports: [CommonModule, MaterialModule, RouterModule.forChild(coursesRoutes)],
 })
 export class CoursesModule {}
