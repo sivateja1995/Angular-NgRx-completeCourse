@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { MaterialModule } from './common/material/material.module';
 import {HttpClientModule} from '@angular/common/http';
+import { EntityDataModule } from '@ngrx/data';
+import { entityConfig } from './entity-metadata';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import {HttpClientModule} from '@angular/common/http';
     AppRoutingModule,
     MaterialModule,
     HttpClientModule,
-    AuthModule.forRoot()
+    AuthModule.forRoot(),
+    EntityDataModule.forRoot(entityConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]
