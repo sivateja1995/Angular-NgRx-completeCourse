@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Course } from '../model/course.model';
+import { CourseEntityService } from '../service/course-entity.service';
+import { defaultDialogConfig } from '../shared/default-dialog-config';
+import {EditCourseComponentComponent} from "../edit-course-component/edit-course-component.component";
 
 @Component({
   selector: 'app-courses-card-list',
@@ -7,9 +12,46 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoursesCardListComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+    courses: Course[];
 
-  ngOnInit(): void {
+    @Output()
+    courseChanged = new EventEmitter();
+
+    constructor(
+      private dialog: MatDialog,
+      private courseService: CourseEntityService) {
+    }
+
+    ngOnInit() {
+
+    }
+
+    editCourse(course:Course) {
+
+        const dialogConfig = defaultDialogConfig();
+
+        dialogConfig.data = {
+          dialogTitle:"Edit Course",
+          course,
+          mode: 'update'
+        };
+
+        this.dialog.open(EditCourseComponentComponent, dialogConfig)
+          .afterClosed()
+          .subscribe(() => this.courseChanged.emit());
+
+    }
+
+  onDeleteCourse(course:Course) {
+
+        this.courseService.delete(course)
+            .subscribe(
+                () => console.log("Delete completed"),
+                err => console.log("Deleted failed", err)
+            );
+
+
   }
 
 }
