@@ -24,7 +24,7 @@ export class EditCourseComponentComponent  {
 
   constructor(
       private fb: UntypedFormBuilder,
-      private dialogRef: MatDialogRef<EditCourseDialogComponent>,
+      private dialogRef: MatDialogRef<EditCourseComponentComponent>,
       @Inject(MAT_DIALOG_DATA) data,
       private coursesService: CourseEntityService) {
 
