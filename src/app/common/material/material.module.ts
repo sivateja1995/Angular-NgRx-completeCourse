@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatInputModule} from '@angular/material/input';
@@ -15,6 +15,8 @@ import {MatListModule} from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule ,Form} from '@angular/forms';
+import{MatTableModule} from '@angular/material/table'
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [],
@@ -37,7 +39,9 @@ import { ReactiveFormsModule, FormsModule ,Form} from '@angular/forms';
     BrowserAnimationsModule,
     BrowserModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatTableModule,
+    MatSelectModule
   ]
 })
 export class MaterialModule { }
