@@ -1,21 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+
+import { Component, OnInit } from "@angular/core";
+import { select, Store } from "@ngrx/store";
+import { Observable } from "rxjs";
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+} from "@angular/router";
+import { AppState } from "./reducers/index";
+import { isLoggedIn, isLoggedOut } from "./auth/selector/auth.selectors";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
 })
 export class AppComponent implements OnInit {
-  title = 'Angular-NgRx-completeCourse';
-  public loading:boolean=false;
+  loading = true;
+  isLoggedIn$: Observable<boolean>;
+  isLoggedOut$: Observable<boolean>;
+  constructor(
+    private router: Router,
+    private store: Store<AppState>,
+  ) {}
 
+  ngOnInit() {
+    // for showing the loder in the application
 
-  constructor(private router:Router) {}
-
-  ngOnInit(): void {
-    this.router.events.subscribe(event  => {
+    this.router.events.subscribe((event) => {
       switch (true) {
         case event instanceof NavigationStart: {
           this.loading = true;
@@ -34,11 +48,13 @@ export class AppComponent implements OnInit {
       }
     });
 
+    // for show and hide of the login and logout buttons in the sidenav
+    this.isLoggedIn$ = this.store.pipe(select(isLoggedIn));
+    this.isLoggedOut$ = this.store.pipe(select(isLoggedOut));
   }
 
-
-  //logout function
-  public logout(){
-
+  logout() {
+    console.log("logout");
+    this.router.navigateByUrl("/login");
   }
 }
