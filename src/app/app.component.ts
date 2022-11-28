@@ -10,7 +10,9 @@ import {
   Router,
 } from "@angular/router";
 import { AppState } from "./reducers/index";
-import { isLoggedIn, isLoggedOut } from "./auth/selector/auth.selectors";
+import { isLoggedIn, isLoggedOut, selectAuthState } from "./auth/selector/auth.selectors";
+import * as AuthAction from './auth/actions/auth.actions'
+import { logout } from "./auth/actions/auth.actions";
 
 @Component({
   selector: "app-root",
@@ -54,7 +56,7 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    console.log("logout");
-    this.router.navigateByUrl("/login");
+    this.store.dispatch(logout())
+    this.router.navigateByUrl('/login');
   }
 }

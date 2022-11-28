@@ -8,5 +8,4 @@ export const login = createAction(
 
 export const logout = createAction(
   "[Top Menu] user logout",
-  props<{user: User }>()
 )

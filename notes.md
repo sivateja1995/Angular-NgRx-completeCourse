@@ -41,3 +41,13 @@ StoreDevtoolsModule.instrument({maxAge:25, logOnly:environment.production})
 2. add subscribe method to the store and that is injected.
 3. now problem is that up on refresh the value is chnaged and data is not getting fetched in the memory.
 4. in order to overcome this we use the selector. 
+
+##  How to add the feature selectors 
+1. in the redcuer add the featureKeyword 'authFeatureKey'
+2. now refoactor the code in the selector. 
+3. change the logout function. 
+
+## adding the auth gaurd service
+1. created the authgaurd service and injected in the routes section.
+2. we can find route section the app.module.ts
+3. simple logic get the selector in pipe and return it to canActivate function. 
