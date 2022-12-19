@@ -8,7 +8,7 @@
 
 ## important commands
 
-``` for adding the store : ng add @ngrx/store ```  
+`for adding the store : ng add @ngrx/store`  
  `for adding the devtools : ng add @ngrx/store-devtools`
 
 `add the modules in app.module.ts`
@@ -37,17 +37,34 @@ StoreDevtoolsModule.instrument({maxAge:25, logOnly:environment.production})
 
 ## How to query a store data.
 
-1. query the data enable and disable the login and logout button. 
+1. query the data enable and disable the login and logout button.
 2. add subscribe method to the store and that is injected.
 3. now problem is that up on refresh the value is chnaged and data is not getting fetched in the memory.
-4. in order to overcome this we use the selector. 
+4. in order to overcome this we use the selector.
 
-##  How to add the feature selectors 
+## How to add the feature selectors
+
 1. in the redcuer add the featureKeyword 'authFeatureKey'
-2. now refoactor the code in the selector. 
-3. change the logout function. 
+2. now refoactor the code in the selector.
+3. change the logout function.
 
 ## adding the auth gaurd service
+
 1. created the authgaurd service and injected in the routes section.
 2. we can find route section the app.module.ts
-3. simple logic get the selector in pipe and return it to canActivate function. 
+3. simple logic get the selector in pipe and return it to canActivate function.
+
+## adding the ngRx effects.
+
+1. we are trying to store the changes made in the frontend along with the ui changes.
+2. effects help to update the backend with perfectly syncronizing the data.
+3. will add the effects to the to app module and feature modules and also create file for the effects.
+
+## understanding the ngrx effects simple
+
+1. created the effects file and imported into the root module.
+2. now import actions and subscribe the actions and save them in the local storage or the cookie storage.
+
+## ngrx effects step by step implementation.
+
+1. use pipe and ofType operator and subscribe the actions.

@@ -1,3 +1,4 @@
+import { CookieService } from "ngx-cookie-service";
 
 import { Component, OnInit } from "@angular/core";
 import { select, Store } from "@ngrx/store";
@@ -10,9 +11,13 @@ import {
   Router,
 } from "@angular/router";
 import { AppState } from "./reducers/index";
-import { isLoggedIn, isLoggedOut, selectAuthState } from "./auth/selector/auth.selectors";
-import * as AuthAction from './auth/actions/auth.actions'
-import { logout } from "./auth/actions/auth.actions";
+import {
+  isLoggedIn,
+  isLoggedOut,
+  selectAuthState,
+} from "./auth/selector/auth.selectors";
+import * as AuthAction from "./auth/actions/auth.actions";
+import { login, logout } from "./auth/actions/auth.actions";
 
 @Component({
   selector: "app-root",
@@ -26,10 +31,17 @@ export class AppComponent implements OnInit {
   constructor(
     private router: Router,
     private store: Store<AppState>,
+    private cookieService: CookieService
   ) {}
 
   ngOnInit() {
     // for showing the loder in the application
+
+    const userProfile = JSON.parse(this.cookieService.get("user"));
+
+    if (userProfile) {
+      this.store.dispatch(login({ user: userProfile }));
+    }
 
     this.router.events.subscribe((event) => {
       switch (true) {
@@ -56,7 +68,7 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    this.store.dispatch(logout())
-    this.router.navigateByUrl('/login');
+    this.store.dispatch(logout());
+    this.router.navigateByUrl("/login");
   }
 }
