@@ -36,13 +36,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // for showing the loder in the application
-
-    const userProfile = JSON.parse(this.cookieService.get("user"));
-
-    if (userProfile) {
-      this.store.dispatch(login({ user: userProfile }));
+    let user = this.cookieService.get("user");
+    if (user) {
+      const userProfile = JSON?.parse(user);
+      if (userProfile) {
+        this.store.dispatch(login({ user: userProfile }));
+      }
     }
-
     this.router.events.subscribe((event) => {
       switch (true) {
         case event instanceof NavigationStart: {

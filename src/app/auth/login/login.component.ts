@@ -40,8 +40,8 @@ export class LoginComponent implements OnInit {
       .login(email, password)
       .pipe(
         tap((user:User) => {
-          const laction  = loginAction.login({user:user})
-          this.store.dispatch(laction);
+          const location  = loginAction.login({user:user})
+          this.store.dispatch(location);
           this.router.navigateByUrl("/courses");
         })
       )
