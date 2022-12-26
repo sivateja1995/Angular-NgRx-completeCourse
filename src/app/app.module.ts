@@ -1,13 +1,44 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { AuthModule } from './auth/auth.module';
-import { MaterialModule } from './common/material/material.module';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
+
+import {MatListModule} from '@angular/material/list';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
 import {HttpClientModule} from '@angular/common/http';
-import { EntityDataModule } from '@ngrx/data';
-import { entityConfig } from './entity-metadata';
+
+import {RouterModule, Routes} from '@angular/router';
+import {AuthModule} from './auth/auth.module';
+import {StoreModule} from '@ngrx/store';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {environment} from '../environments/environment';
+import {RouterState, StoreRouterConnectingModule} from '@ngrx/router-store';
+
+import {EffectsModule} from '@ngrx/effects';
+import {EntityDataModule} from '@ngrx/data';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { reducers,metaReducers } from './reducers/index';
+import { AuthGaurd } from './auth/auth.guard';
+import { AuthEffects } from './auth/effects/auth.effects';
+
+
+const routes: Routes = [
+  {
+    path: 'courses',
+    loadChildren: () => import('./courses/courses.module').then(m => m.CoursesModule),
+    canActivate:[AuthGaurd]
+  },
+  {
+    path: '**',
+    redirectTo: '/'
+  }
+];
+
+
 
 @NgModule({
   declarations: [
@@ -15,13 +46,25 @@ import { entityConfig } from './entity-metadata';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    MaterialModule,
+    BrowserAnimationsModule,
+    RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
     HttpClientModule,
+    MatMenuModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatProgressSpinnerModule,
+    MatListModule,
+    MatToolbarModule,
     AuthModule.forRoot(),
-    EntityDataModule.forRoot(entityConfig)
+    StoreModule.forRoot(reducers, {metaReducers}),
+    StoreDevtoolsModule.instrument({maxAge:25, logOnly:environment.production}),
+    EffectsModule.forRoot([AuthEffects]),
+    StoreRouterConnectingModule.forRoot({
+      stateKey:'router',
+      routerState:RouterState.Minimal
+    })
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

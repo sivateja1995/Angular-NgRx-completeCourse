@@ -1,26 +1,24 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Course } from '../model/course.model';
-import { CourseEntityService } from '../service/course-entity.service';
-import { defaultDialogConfig } from '../shared/default-dialog-config';
-import {EditCourseComponentComponent} from "../edit-course-component/edit-course-component.component";
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
+import {Course} from "../model/course";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import {EditCourseDialogComponent} from "../edit-course-dialog/edit-course-dialog.component";
+import {defaultDialogConfig} from '../shared/default-dialog-config';
 
 @Component({
-  selector: 'app-courses-card-list',
-  templateUrl: './courses-card-list.component.html',
-  styleUrls: ['./courses-card-list.component.css']
+    selector: 'courses-card-list',
+    templateUrl: './courses-card-list.component.html',
+    styleUrls: ['./courses-card-list.component.css']
 })
 export class CoursesCardListComponent implements OnInit {
 
-  @Input()
+    @Input()
     courses: Course[];
 
     @Output()
     courseChanged = new EventEmitter();
 
     constructor(
-      private dialog: MatDialog,
-      private courseService: CourseEntityService) {
+      private dialog: MatDialog ) {
     }
 
     ngOnInit() {
@@ -37,7 +35,7 @@ export class CoursesCardListComponent implements OnInit {
           mode: 'update'
         };
 
-        this.dialog.open(EditCourseComponentComponent, dialogConfig)
+        this.dialog.open(EditCourseDialogComponent, dialogConfig)
           .afterClosed()
           .subscribe(() => this.courseChanged.emit());
 
@@ -45,13 +43,16 @@ export class CoursesCardListComponent implements OnInit {
 
   onDeleteCourse(course:Course) {
 
-        this.courseService.delete(course)
-            .subscribe(
-                () => console.log("Delete completed"),
-                err => console.log("Deleted failed", err)
-            );
-
 
   }
 
 }
+
+
+
+
+
+
+
+
+
