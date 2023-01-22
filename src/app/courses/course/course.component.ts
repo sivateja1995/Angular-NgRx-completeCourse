@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Course} from '../model/course';
 import {Observable} from 'rxjs';
@@ -10,8 +10,7 @@ import {CoursesHttpService} from '../services/courses-http.service';
 @Component({
   selector: 'course',
   templateUrl: './course.component.html',
-  styleUrls: ['./course.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit {
 
