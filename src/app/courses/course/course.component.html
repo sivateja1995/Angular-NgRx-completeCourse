@@ -41,14 +41,11 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
   </mat-table>
 
-  <button
-    class="bottom-toolbar"
-    mat-raised-button
-    color="accent"
-    (click)="loadLessonsPage(course)"
-  >
-    Load More
-  </button>
+
+  <button class="bottom-toolbar" mat-raised-button color="accent"
+          (click)="loadLessonsPage(course)">Load More</button>
+
 </div>
