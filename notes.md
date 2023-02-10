@@ -68,3 +68,8 @@ StoreDevtoolsModule.instrument({maxAge:25, logOnly:environment.production})
 ## ngrx effects step by step implementation.
 
 1. use pipe and ofType operator and subscribe the actions.
+
+
+## NgRx Effects - fetching the data from the backend. 
+
+1.
