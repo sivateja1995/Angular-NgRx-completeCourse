@@ -1,3 +1,5 @@
+import { courseReducer } from './reducers/courses.reducer';
+import { StoreModule } from '@ngrx/store';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HomeComponent} from './home/home.component';
@@ -24,12 +26,16 @@ import {RouterModule, Routes} from '@angular/router';
 
 import { EffectsModule } from '@ngrx/effects';
 import { CoursesEffects } from './courses.effects';
+import { CoursesResolver } from './courses.resolver';
 
 
 export const coursesRoutes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
+    resolve:{
+      courses:CoursesResolver
+    }
 
   },
   {
@@ -57,7 +63,8 @@ export const coursesRoutes: Routes = [
     MatMomentDateModule,
     ReactiveFormsModule,
     RouterModule.forChild(coursesRoutes),
-    EffectsModule.forFeature([CoursesEffects])
+    EffectsModule.forFeature([CoursesEffects]),
+    StoreModule.forFeature("courses",courseReducer)
   ],
   declarations: [
     HomeComponent,
@@ -73,7 +80,8 @@ export const coursesRoutes: Routes = [
   ],
   entryComponents: [EditCourseDialogComponent],
   providers: [
-    CoursesHttpService
+    CoursesHttpService,
+    CoursesResolver
   ]
 })
 export class CoursesModule {
