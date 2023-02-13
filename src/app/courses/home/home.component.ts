@@ -7,7 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import {map, shareReplay} from 'rxjs/operators';
 import {CoursesHttpService} from '../services/courses-http.service';
 import { AppState } from '../../reducers';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+import { selectAdvancedCourses, selectBeginningCourses, selectPromoTotal } from '../selector/courses.selector';
 
 
 
@@ -20,7 +21,7 @@ export class HomeComponent implements OnInit {
 
     promoTotal$: Observable<number>;
 
-    loading$: Observable<boolean>;
+
 
     beginnerCourses$: Observable<Course[]>;
 
@@ -39,9 +40,9 @@ export class HomeComponent implements OnInit {
     }
 
   reload() {
-
-
-
+    this.beginnerCourses$ = this.store.pipe(select(selectBeginningCourses)) as Observable<Course[]>;
+    this.advancedCourses$ = this.store.pipe(select(selectAdvancedCourses)) as Observable<Course[]>;
+    this.promoTotal$ = this.store.pipe(select(selectPromoTotal))  as unknown as Observable<number>;
   }
 
   onAddCourse() {
