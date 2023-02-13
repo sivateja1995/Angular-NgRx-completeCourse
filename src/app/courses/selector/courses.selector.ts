@@ -26,5 +26,11 @@ export const selectAdvancedCourses = createSelector(
 //  for the pormo total
 export const selectPromoTotal = createSelector(
   selectAllCourses,
-  courses=> courses.filter(course=>course['promo'].length)
+  courses => courses.filter(courses=> courses.promo == true).length
 )
+
+// for the know courses loaded or not 
+export const areCoursesLoaded = createSelector(
+  selectCoursesState,
+  state => state.allCoursesLoaded
+);
